@@ -14,6 +14,16 @@ class ToDo {
         this.toDoListContainer.innerHTML = ''
 
         this.buildUI()
+        this.renderTasksList()
+    }
+
+    renderTasksList(){
+        // you can use Array.prototype.forEach instead of for loop
+        for(let i = 0; i < this.tasks.length; i++){
+            const taskContainer = document.createElement('div')
+            taskContainer.innerHTML = this.tasks[i].taskName
+            this.toDoListContainer.appendChild(taskContainer)
+        }
     }
 
     buildUI(){
