@@ -1,13 +1,25 @@
 class ToDo {
     constructor(selector) {
         this.toDoListContainer = document.querySelector(selector)
-        this.tasks = [{
-            taskName: 'Wynieś śmieci',
-            isCompleted: true
-        }]
+        this.tasks = []
         this.newTaskName = ''
 
+        this.initTasksSync()
         this.render()
+    }
+
+    initTasksSync(){
+        firebase.database().ref('tasks').on(
+            'value',
+            snapshot => {
+                this.tasks = snapshot.val()
+                this.render()
+            }
+        )
+    }
+
+    saveToDB(){
+        firebase.database().ref('tasks').set(this.tasks)
     }
 
     render(){
@@ -58,11 +70,13 @@ class ToDo {
 
     onTaskClickHandler(index){
         this.tasks[index].isCompleted = !this.tasks[index].isCompleted
+        this.saveToDB()
         this.render()
     }
 
     onTaskDoubleClickHandler(index){
         this.tasks =  this.tasks.filter((task, i) => index !== i )
+        this.saveToDB()
         this.render()
     }
 
@@ -82,6 +96,7 @@ class ToDo {
             taskName: taskName
         })
 
+        this.saveToDB()
         this.render()
     }
 }
