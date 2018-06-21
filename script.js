@@ -1,5 +1,6 @@
 class ToDo {
-    constructor(selector) {
+    constructor(selector, UID) {
+        this.UID = UID
         this.toDoListContainer = document.querySelector(selector)
         this.tasks = []
         this.newTaskName = ''
@@ -9,17 +10,17 @@ class ToDo {
     }
 
     initTasksSync(){
-        firebase.database().ref('tasks').on(
+        firebase.database().ref('tasks-'+this.UID).on(
             'value',
             snapshot => {
-                this.tasks = snapshot.val()
+                this.tasks = snapshot.val() || []
                 this.render()
             }
         )
     }
 
     saveToDB(){
-        firebase.database().ref('tasks').set(this.tasks)
+        firebase.database().ref('tasks-'+this.UID).set(this.tasks)
     }
 
     render(){
@@ -101,4 +102,6 @@ class ToDo {
     }
 }
 
-const toDo1 = new ToDo('div.toDo1')
+const toDo1 = new ToDo('div.toDo1', 'some-fancy-uid')
+const toDo2 = new ToDo('div.toDo2', 'some-fancy-uid-2')
+const toDo3 = new ToDo('div.toDo3', 'some-fancy-uid-3')
