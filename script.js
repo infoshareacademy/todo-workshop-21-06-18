@@ -3,7 +3,7 @@ class ToDo {
         this.toDoListContainer = document.querySelector(selector)
         this.tasks = [{
             taskName: 'Wynieś śmieci',
-            isCompleted: false
+            isCompleted: true
         }]
         this.newTaskName = ''
 
@@ -22,6 +22,14 @@ class ToDo {
         for(let i = 0; i < this.tasks.length; i++){
             const taskContainer = document.createElement('div')
             taskContainer.innerHTML = this.tasks[i].taskName
+
+            if(this.tasks[i].isCompleted) taskContainer.style.textDecoration = 'line-through'
+
+            taskContainer.addEventListener(
+                'click',
+                () => this.onTaskClickHandler(i)
+            )
+
             this.toDoListContainer.appendChild(taskContainer)
         }
     }
@@ -42,6 +50,11 @@ class ToDo {
 
         this.toDoListContainer.appendChild(input)
         this.toDoListContainer.appendChild(button)
+    }
+
+    onTaskClickHandler(index){
+        this.tasks[index].isCompleted = !this.tasks[index].isCompleted
+        this.render()
     }
 
     onAddNewTaskClickHandler(){
