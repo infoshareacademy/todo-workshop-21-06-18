@@ -1,9 +1,16 @@
 class ToDo {
-    constructor(){
-        this.tasks = []
+    constructor() {
+        this.tasks = [{
+            taskName: 'Wynieś śmieci',
+            isCompleted: false
+        }]
     }
 
-    addTask(){
+    addTask(taskName) {
+        this.tasks = this.tasks.concat({
+            isCompleted: false,
+            taskName: taskName
+        })
     }
 }
 
