@@ -5,6 +5,7 @@ class ToDo {
             taskName: 'Wynieś śmieci',
             isCompleted: false
         }]
+        this.newTaskName = ''
 
         this.render()
     }
@@ -30,11 +31,13 @@ class ToDo {
     }
 
     onAddNewTaskClickHandler(){
-        console.log('bu!')
+        this.addTask(this.newTaskName)
+        this.newTaskName = ''
+        this.render()
     }
 
     onNewTaskNameChanged(event){
-        console.log(event.target.value)
+        this.newTaskName = event.target.value
     }
 
     addTask(taskName) {
