@@ -29,6 +29,10 @@ class ToDo {
                 'click',
                 () => this.onTaskClickHandler(i)
             )
+            taskContainer.addEventListener(
+                'dblclick',
+                () => this.onTaskDoubleClickHandler(i)
+            )
 
             this.toDoListContainer.appendChild(taskContainer)
         }
@@ -54,6 +58,11 @@ class ToDo {
 
     onTaskClickHandler(index){
         this.tasks[index].isCompleted = !this.tasks[index].isCompleted
+        this.render()
+    }
+
+    onTaskDoubleClickHandler(index){
+        this.tasks =  this.tasks.filter((task, i) => index !== i )
         this.render()
     }
 
