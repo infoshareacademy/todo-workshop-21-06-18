@@ -13,6 +13,10 @@ class ToDo {
     render(){
         this.toDoListContainer.innerHTML = ''
 
+        this.buildUI()
+    }
+
+    buildUI(){
         const input = document.createElement('input')
         const button = document.createElement('button')
         button.innerHTML = 'Dodaj zadanie!'
